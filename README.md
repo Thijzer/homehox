@@ -31,25 +31,32 @@ bootc treats the OS itself as an OCI/Docker image, including the kernel, and dep
 
 # 1. Project layout
 
-I'd settle on:
+Post-install services are deliberately separated from the immutable OS image:
 
 ```text
-fedora-bootc/
-├── Containerfile
-├── kargs.toml
-├── output/
-└── README.md
+scripts/
+├── post-install.sh                    # service dispatcher
+└── post-install/
+    ├── prepare-host.sh                # shared Docker/filesystem checks
+    └── install-arcane.sh              # Arcane-specific Compose deployment
 ```
 
-`output/` is generated and shouldn't be committed to Git.
+After deploying a fresh VM, run the Arcane installer interactively on the VM:
 
-Add:
-
-```gitignore
-output/
-*.qcow2
-*.oci
+```bash
+scp -r scripts/post-install.sh scripts/post-install thijzer@192.168.1.154:/tmp/
+ssh -t thijzer@192.168.1.154 'bash /tmp/post-install.sh arcane'
 ```
+
+Because bootc keeps `/opt` immutable, the installer keeps Arcane's Compose
+file, generated secrets, and data under `/var/lib/arcane/`. Projects and builds
+are stored under `/var/lib/arcane/projects` and `/var/lib/arcane/builds`.
+Secrets are generated on the VM and are not stored in this repository. Future
+services such as Tailscale should get their own installer under
+`scripts/post-install/` and be added as a separate dispatcher action.
+
+
+`output/` contains generated build artifacts and should not be committed.
 
 ---
 
@@ -293,61 +300,43 @@ That's a very clean separation.
 
 # 11. Install Arcane
 
-Once Docker is working:
+Arcane is installed after first boot rather than being baked into the
+immutable OS image. The installer prepares Docker, creates the mutable
+filesystem paths, generates secrets, and starts the official Arcane Compose
+service:
 
 ```bash
-mkdir -p /opt/arcane
-cd /opt/arcane
+scp -r scripts/post-install.sh scripts/post-install \\
+  thijzer@192.168.1.154:/tmp/
+ssh -t thijzer@192.168.1.154 \\
+  'bash /tmp/post-install.sh arcane'
 ```
 
-Create `compose.yaml`:
-
-```yaml
-services:
-  arcane:
-    image: ghcr.io/getarcaneapp/manager:latest
-    container_name: arcane
-    restart: unless-stopped
-
-    ports:
-      - "3552:3552"
-
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - arcane-data:/app/data
-
-    environment:
-      APP_URL: http://YOUR_VM_IP:3552
-      PUID: "1000"
-      PGID: "1000"
-      ENCRYPTION_KEY: "REPLACE_ME"
-      JWT_SECRET: "REPLACE_ME"
-
-volumes:
-  arcane-data:
-```
-
-Generate the secrets:
-
-```bash
-openssl rand -hex 32
-```
-
-Run that twice, and put the results into `ENCRYPTION_KEY` and `JWT_SECRET`.
-
-Then:
-
-```bash
-docker compose up -d
-```
-
-Arcane's current documentation recommends Docker Compose and this general architecture: Arcane container + Docker socket + persistent `/app/data` volume. It listens on port 3552 by default. ([getarcane.app][4])
-
-Open:
+The installer stores all mutable Arcane state under `/var/lib/arcane`:
 
 ```text
-http://VM-IP:3552
+/var/lib/arcane/
+├── .env                  # generated secrets; mode 600
+├── compose.yaml
+├── projects/             # Arcane Compose projects
+└── builds/               # project build files
 ```
+
+The Arcane data volume is managed by Docker and mounted at `/app/data`. Arcane
+is available at:
+
+```text
+http://192.168.1.154:3552
+```
+
+The installer is safe to rerun: existing secrets are preserved and the
+container is updated through Compose. It also migrates project definitions
+that still refer to `/data/compose`, a path that cannot be created on an
+immutable bootc root filesystem, to `/var/lib/arcane/projects`.
+
+To add another post-install service, such as Tailscale, create a separate
+installer under `scripts/post-install/` and add a dispatcher action rather
+than adding it to the Arcane setup.
 
 ---
 
