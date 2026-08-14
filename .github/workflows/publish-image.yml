@@ -52,6 +52,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./Containerfile
           load: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -63,6 +64,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./Containerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
