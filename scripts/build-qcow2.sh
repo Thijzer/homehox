@@ -5,6 +5,7 @@ set -Eeuo pipefail
 # ownership afterward to keep output manageable by the normal user.
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+IMAGE="${IMAGE:-localhost/homebox:latest}"
 cd "$PROJECT_DIR"
 [[ -f config.toml ]] || { echo "Missing config.toml" >&2; exit 1; }
 
@@ -34,10 +35,17 @@ awk -v hash="$password_hash" '
 ' config.toml > "$CONFIG_FILE"
 unset password_hash
 
-if ! podman image exists localhost/homebox:latest; then
-  echo "Building localhost/homebox:latest..."
-  podman build --tag localhost/homebox:latest .
+if ! podman image exists "$IMAGE"; then
+  echo "Building $IMAGE..."
+  podman build --tag "$IMAGE" .
 fi
+
+# The image builder runs as root and uses rootful Podman storage. Rootless
+# images (including images pulled by the caller) are not visible there. Always
+# transfer the selected image so moving tags such as :stable cannot leave a
+# stale rootful copy behind.
+echo "Loading $IMAGE into rootful Podman storage..."
+podman save "$IMAGE" | sudo podman load
 
 sudo podman run \
   --rm \
@@ -53,6 +61,6 @@ sudo podman run \
   --rootfs ext4 \
   --use-librepo=True \
   --config /config.toml \
-  localhost/homebox
+  "$IMAGE"
 
 sudo chown -R "$(id -u):$(id -g)" "$PROJECT_DIR/output"

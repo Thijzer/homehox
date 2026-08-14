@@ -2,6 +2,28 @@
 
 Homebox is an immutable Fedora bootc appliance with Docker and Arcane for running self-hosted services.
 
+## Build and release
+
+The OCI bootc image is built in GitHub Actions and published to GHCR as
+`ghcr.io/thijzer/homehox`. Pull requests build without publishing; pushes to
+`master` publish development output; annotated `vX.Y.Z` tags publish a
+versioned image and move the `stable` channel. See
+[docs/RELEASES.md](docs/RELEASES.md) for the release checklist and
+[docs/GHCR.md](docs/GHCR.md) for host updates and the automation plan.
+
+For a local build:
+
+```bash
+./scripts/build-image.sh --tag localhost/homebox:latest
+```
+
+For an installed host, stage a specific release transactionally and reboot
+when ready:
+
+```bash
+sudo ./scripts/update-bootc.sh --image ghcr.io/thijzer/homehox:v1.2.3
+```
+
 The overall design is:
 
 ```text
@@ -71,9 +93,7 @@ Arcane templates for services deployed after the host is running live under
 From your project directory:
 
 ```bash
-podman build \
-    -t localhost/homebox:latest \
-    .
+./scripts/build-image.sh --tag localhost/homebox:latest
 ```
 
 Check:
