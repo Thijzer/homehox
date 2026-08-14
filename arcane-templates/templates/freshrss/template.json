@@ -1,0 +1,7 @@
+{
+  "name": "FreshRSS",
+  "description": "Self-hosted RSS and Atom feed aggregator with a web-based setup wizard.",
+  "version": "1.0.0",
+  "author": "thijzer",
+  "tags": ["rss", "feed-reader", "news"]
+}

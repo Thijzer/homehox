@@ -2,10 +2,26 @@
   "$schema": "https://github.com/getarcaneapp/templates/schema.json",
   "name": "Homebox Templates",
   "description": "Docker Compose templates for the Homebox self-hosting appliance.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "thijzer",
   "url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates",
   "templates": [
+    {
+      "id": "freshrss",
+      "name": "FreshRSS",
+      "description": "Self-hosted RSS and Atom feed aggregator with a web-based setup wizard.",
+      "version": "1.0.0",
+      "author": "thijzer",
+      "compose_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/freshrss/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/freshrss/.env.example",
+      "documentation_url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates/templates/freshrss",
+      "content_hash": "f9a660729432e884b96ed449642d1801ea5f07c24a8c1d094b2a3c19cb256e6a",
+      "tags": [
+        "rss",
+        "feed-reader",
+        "news"
+      ]
+    },
     {
       "id": "tailscale",
       "name": "Tailscale",
