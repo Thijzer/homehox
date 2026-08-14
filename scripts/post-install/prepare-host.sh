@@ -27,6 +27,39 @@ if [[ "$(id -u)" -ne 0 ]]; then
     sudo -v
 fi
 
+run_root() {
+    if [[ "$(id -u)" -eq 0 ]]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+configure_dns_stub_listener() {
+    # systemd-resolved's 127.0.0.53:53 stub listener conflicts with Docker
+    # services such as Technitium DNS that need to bind 0.0.0.0:53. Disable
+    # only the stub listener; resolved can continue managing upstream DNS.
+    if ! systemctl is-active --quiet systemd-resolved.service 2>/dev/null; then
+        return
+    fi
+
+    run_root install -d -m 0755 /etc/systemd/resolved.conf.d
+    run_root tee /etc/systemd/resolved.conf.d/90-homebox-dns.conf >/dev/null <<'EOF'
+[Resolve]
+DNSStubListener=no
+EOF
+
+    run_root systemctl restart systemd-resolved.service
+
+    # Point applications at resolved's non-stub resolver configuration. This
+    # keeps host name resolution working after the stub listener is disabled.
+    if [[ -e /run/systemd/resolve/resolv.conf ]]; then
+        run_root ln -sfn /run/systemd/resolve/resolv.conf /etc/resolv.conf
+    fi
+}
+
+configure_dns_stub_listener
+
 if ! systemctl is-enabled --quiet docker.service 2>/dev/null; then
     if [[ "$(id -u)" -eq 0 ]]; then
         systemctl enable docker.service
