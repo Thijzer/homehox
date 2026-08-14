@@ -5,8 +5,13 @@ services:
     hostname: ${TECHNITIUM_HOSTNAME}
     ports:
       - "${TECHNITIUM_WEB_PORT}:5380/tcp"
+      - "${TECHNITIUM_WEB_HTTPS_PORT}:53443/tcp"
       - "${TECHNITIUM_DNS_PORT}:53/udp"
       - "${TECHNITIUM_DNS_PORT}:53/tcp"
+      - "${TECHNITIUM_DOH_PORT}:443/tcp"
+      - "${TECHNITIUM_DOH3_PORT}:443/udp"
+      - "${TECHNITIUM_DOT_PORT}:853/tcp"
+      - "${TECHNITIUM_DOQ_PORT}:853/udp"
     environment:
       DNS_SERVER_DOMAIN: ${TECHNITIUM_DOMAIN}
       DNS_SERVER_ADMIN_PASSWORD: ${TECHNITIUM_ADMIN_PASSWORD}

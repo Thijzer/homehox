@@ -15,8 +15,20 @@ HTTPS, and DNS-over-QUIC.
    storage.
 5. Deploy the project and open `http://<host>:${TECHNITIUM_WEB_PORT}`.
 
-The DNS service listens on both TCP and UDP port `53`. The web console listens
-on TCP port `5380` by default.
+The template publishes the following services by default:
+
+| Host port | Protocol | Service |
+| --- | --- | --- |
+| `53` | TCP/UDP | DNS-over-TCP and DNS-over-UDP |
+| `443` | TCP | DNS-over-HTTPS (HTTP/1.1 and HTTP/2) |
+| `443` | UDP | DNS-over-HTTPS3 (HTTP/3) |
+| `853` | TCP | DNS-over-TLS |
+| `853` | UDP | DNS-over-QUIC |
+| `5380` | TCP | Web UI and API over HTTP |
+| `53443` | TCP | Web UI and API over HTTPS |
+
+The host ports are configurable through the `TECHNITIUM_*_PORT` variables in
+`.env`. The DNS service listens on both TCP and UDP port `53` by default.
 
 ## Storage
 
@@ -33,7 +45,11 @@ are also suitable.
 
 ## Networking and DHCP
 
-The default bridge-network configuration publishes DNS and web-console ports.
+The default bridge-network configuration publishes DNS, encrypted DNS
+protocols, and both web-console ports. Ensure these host ports are available;
+`443`, `853`, and `53` are commonly used by other services and reverse
+proxies.
+
 The upstream example recommends host networking for DHCP deployments; if DHCP
 is required, change the Compose file to use `network_mode: host` and remove the
 `ports` section and the `net.ipv4.ip_local_port_range` sysctl.
