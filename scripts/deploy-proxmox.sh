@@ -6,7 +6,6 @@ set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
-BUILD_SCRIPT="${SCRIPT_DIR}/build-qcow2.sh"
 PROXMOX_HOST="${PROXMOX_HOST:-192.168.1.10}"
 VMID="${VMID:-103}"
 STORAGE="${STORAGE:-local-lvm}"
@@ -14,13 +13,11 @@ BRIDGE="${BRIDGE:-vmbr0}"
 IMAGE="${PROJECT_DIR}/output/qcow2/disk.qcow2"
 REMOTE_IMAGE="/var/lib/vz/dump/disk-${VMID}.qcow2"
 REPLACE=false
-REBUILD=false
 
 usage() {
     echo "Usage: $0 [--replace]"
     echo
     echo "  --replace  Stop VM ${VMID} and replace its existing scsi0 disk"
-    echo "  --rebuild  Rebuild the QCOW2 even if output/qcow2/disk.qcow2 exists"
     echo
     echo "Environment overrides: PROXMOX_HOST, VMID, STORAGE, BRIDGE"
 }
@@ -28,7 +25,6 @@ usage() {
 for arg in "$@"; do
     case "$arg" in
         --replace) REPLACE=true ;;
-        --rebuild) REBUILD=true ;;
         -h|--help) usage; exit 0 ;;
         *) echo "Unknown option: $arg" >&2; usage >&2; exit 2 ;;
     esac
@@ -42,17 +38,6 @@ fi
 cd "$PROJECT_DIR"
 
 [[ -f config.toml ]] || { echo "Missing config.toml" >&2; exit 1; }
-
-if [[ "$REBUILD" == true || ! -f "$IMAGE" ]]; then
-    echo "Generating QCOW2 image..."
-    # The image builder runs with sudo and may leave root-owned files.
-    sudo rm -rf output/qcow2
-    "$BUILD_SCRIPT"
-else
-    echo "Using existing image: $IMAGE"
-    echo "Use --rebuild to generate a fresh QCOW2."
-fi
-
 [[ -f "$IMAGE" ]] || { echo "QCOW2 was not generated: $IMAGE" >&2; exit 1; }
 
 echo "Copying image to ${PROXMOX_HOST}..."
