@@ -7,10 +7,10 @@ This directory is a small Arcane template registry for this project.
 Once this repository is public on GitHub, add the following URL in Arcane:
 
 ```text
-https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/registry.json
+https://raw.githubusercontent.com/Thijzer/homebox/master/arcane-templates/registry.json
 ```
 
-The repository is currently `Thijzer/homehox` and its default branch is
+The repository is currently `Thijzer/homebox` and its default branch is
 `master`. If either changes, update the URLs in `registry.json` before adding
 it to Arcane.
 

@@ -4,7 +4,7 @@ set -Eeuo pipefail
 # Run on an installed Homebox host. The image must be the same bootc image
 # format that is published by CI. bootc stages updates transactionally; the
 # running deployment changes only after reboot.
-IMAGE="${BOOTC_IMAGE:-ghcr.io/thijzer/homehox:stable}"
+IMAGE="${BOOTC_IMAGE:-ghcr.io/thijzer/homebox:stable}"
 REBOOT=false
 
 usage() {
@@ -15,8 +15,8 @@ Usage: $0 [--image IMAGE] [--reboot]
   --reboot       Reboot after a successful staged update
 
 Examples:
-  sudo $0 --image ghcr.io/thijzer/homehox:v1.2.3 --reboot
-  sudo $0 --image ghcr.io/thijzer/homehox:stable
+  sudo $0 --image ghcr.io/thijzer/homebox:v1.2.3 --reboot
+  sudo $0 --image ghcr.io/thijzer/homebox:stable
 EOF
 }
 

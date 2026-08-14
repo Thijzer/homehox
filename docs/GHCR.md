@@ -14,7 +14,7 @@ or configure a narrowly scoped read-only pull token on the host. A public
 package is preferred for this appliance because the image contains no private
 keys or passwords.
 
-Check the published digests in GitHub: **Packages → homehox → Versions**. A
+Check the published digests in GitHub: **Packages → homebox → Versions**. A
 release is only complete once the expected version and digest are present.
 
 ## Updating an installed host
@@ -24,7 +24,7 @@ For a public GHCR package, copy the updater to the host and stage a release:
 ```bash
 scp scripts/update-bootc.sh thijzer@HOST:/tmp/
 ssh -t thijzer@HOST 'sudo bash /tmp/update-bootc.sh \
-  --image ghcr.io/thijzer/homehox:v1.2.3'
+  --image ghcr.io/thijzer/homebox:v1.2.3'
 ```
 
 Review `bootc status`, then reboot during the change window:
@@ -40,7 +40,7 @@ currently running deployment remains active until reboot.
 For normal channel updates:
 
 ```bash
-sudo bash /tmp/update-bootc.sh --image ghcr.io/thijzer/homehox:stable
+sudo bash /tmp/update-bootc.sh --image ghcr.io/thijzer/homebox:stable
 ```
 
 Exact version tags are preferable when rolling out gradually. `latest` is for

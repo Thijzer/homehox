@@ -10,7 +10,7 @@ separate release line.
 
 ## Channels and tags
 
-The package is `ghcr.io/thijzer/homehox` (the repository name is historical).
+The package is `ghcr.io/thijzer/homebox` (the repository name is historical).
 CI publishes:
 
 | Tag | Meaning | Recommended use |
@@ -59,8 +59,8 @@ A new VM or a deliberate Proxmox replacement uses the OCI image selected by
 the local build. Build it locally with:
 
 ```bash
-podman pull ghcr.io/thijzer/homehox:v1.2.3
-IMAGE=ghcr.io/thijzer/homehox:v1.2.3 ./scripts/build-qcow2.sh
+podman pull ghcr.io/thijzer/homebox:v1.2.3
+IMAGE=ghcr.io/thijzer/homebox:v1.2.3 ./scripts/build-qcow2.sh
 ```
 
 `build-qcow2.sh` accepts the `IMAGE` environment variable and passes that
@@ -79,5 +79,5 @@ window.
 Before a reboot, inspect the staged deployment with `sudo bootc status`.
 After a bad boot, select the previous deployment from the boot loader or use
 the documented bootc rollback procedure. Pinning a known-good tag with
-`sudo scripts/update-bootc.sh --image ghcr.io/thijzer/homehox:v1.2.2` is useful
+`sudo scripts/update-bootc.sh --image ghcr.io/thijzer/homebox:v1.2.2` is useful
 for recovery, but retain application backups and verify the resulting status.

@@ -16,7 +16,7 @@ permissions:
   packages: write
 
 env:
-  IMAGE: ghcr.io/thijzer/homehox
+  IMAGE: ghcr.io/thijzer/homebox
 
 jobs:
   build:

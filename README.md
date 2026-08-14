@@ -5,7 +5,7 @@ Homebox is an immutable Fedora bootc appliance with Docker and Arcane for runnin
 ## Build and release
 
 The OCI bootc image is built in GitHub Actions and published to GHCR as
-`ghcr.io/thijzer/homehox`. Pull requests build without publishing; pushes to
+`ghcr.io/thijzer/homebox`. Pull requests build without publishing; pushes to
 `master` publish development output; annotated `vX.Y.Z` tags publish a
 versioned image and move the `stable` channel. See
 [docs/RELEASES.md](docs/RELEASES.md) for the release checklist and
@@ -21,7 +21,7 @@ For an installed host, stage a specific release transactionally and reboot
 when ready:
 
 ```bash
-sudo ./scripts/update-bootc.sh --image ghcr.io/thijzer/homehox:v1.2.3
+sudo ./scripts/update-bootc.sh --image ghcr.io/thijzer/homebox:v1.2.3
 ```
 
 The overall design is:

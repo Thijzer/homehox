@@ -17,7 +17,7 @@ Build the Homebox bootc image with podman.
 
 Examples:
   $0 --tag localhost/homebox:dev
-  $0 --tag ghcr.io/thijzer/homehox:v1.0.0 --push
+  $0 --tag ghcr.io/thijzer/homebox:v1.0.0 --push
 EOF
 }
 
