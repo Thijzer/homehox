@@ -13,5 +13,5 @@ RUN dnf -y install 'dnf5-command(config-manager)' && \
 
 RUN systemctl enable docker.service
 
-LABEL org.opencontainers.image.title="fedora-bootc-docker" \
-      org.opencontainers.image.description="Fedora bootc image with Docker CE preinstalled"
+LABEL org.opencontainers.image.title="homebox" \
+      org.opencontainers.image.description="Homebox immutable Fedora appliance with Docker CE and Arcane"

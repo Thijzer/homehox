@@ -2,7 +2,7 @@
 
 ## Project
 
-This repository builds a Fedora bootc VM image with Docker CE and deploys it to Proxmox.
+Homebox builds an immutable Fedora bootc VM image with Docker CE and Arcane, then deploys it to Proxmox.
 
 ## Important files
 

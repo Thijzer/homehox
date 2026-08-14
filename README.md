@@ -1,4 +1,6 @@
-## Fedora bootc + Docker + Arcane
+# Homebox
+
+Homebox is an immutable Fedora bootc appliance with Docker and Arcane for running self-hosted services.
 
 The overall design is:
 
@@ -55,6 +57,9 @@ Secrets are generated on the VM and are not stored in this repository. Future
 services such as Tailscale should get their own installer under
 `scripts/post-install/` and be added as a separate dispatcher action.
 
+Arcane templates for services deployed after the host is running live under
+`arcane-templates/`. The first template is a standalone Tailscale node; see
+`arcane-templates/README.md` for publishing the registry in Arcane.
 
 `output/` contains generated build artifacts and should not be committed.
 
@@ -67,14 +72,14 @@ From your project directory:
 
 ```bash
 podman build \
-    -t localhost/fedora-bootc:latest \
+    -t localhost/homebox:latest \
     .
 ```
 
 Check:
 
 ```bash
-podman images localhost/fedora-bootc
+podman images localhost/homebox
 ```
 
 ---
@@ -96,7 +101,7 @@ sudo podman run \
     --type qcow2 \
     --rootfs ext4 \
     --use-librepo=True \
-    localhost/fedora-bootc
+    localhost/homebox
 ```
 
 The important bit for your Fedora image is:

@@ -34,9 +34,9 @@ awk -v hash="$password_hash" '
 ' config.toml > "$CONFIG_FILE"
 unset password_hash
 
-if ! podman image exists localhost/fedora-bootc:latest; then
-  echo "Building localhost/fedora-bootc:latest..."
-  podman build --tag localhost/fedora-bootc:latest .
+if ! podman image exists localhost/homebox:latest; then
+  echo "Building localhost/homebox:latest..."
+  podman build --tag localhost/homebox:latest .
 fi
 
 sudo podman run \
@@ -53,6 +53,6 @@ sudo podman run \
   --rootfs ext4 \
   --use-librepo=True \
   --config /config.toml \
-  localhost/fedora-bootc
+  localhost/homebox
 
 sudo chown -R "$(id -u):$(id -g)" "$PROJECT_DIR/output"

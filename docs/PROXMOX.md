@@ -1,12 +1,12 @@
-# Deploy the Fedora bootc QCOW2 Image to Proxmox
+# Deploy the Homebox QCOW2 Image to Proxmox
 
 This guide imports `output/qcow2/disk.qcow2` into a Proxmox VM.
 
 The examples use:
 
-- Proxmox server: `192.168.1.10`
+- Proxmox server: `192.168.1.x`
 - VM ID: `200`
-- VM name: `fedora-bootc`
+- VM name: `homebox`
 - Proxmox storage: `local-lvm`
 - Network bridge: `vmbr0`
 
@@ -17,7 +17,7 @@ Change these values if your Proxmox configuration is different.
 From the project directory:
 
 ```bash
-cd /var/home/thijzer/Projects/fedora-bootc
+cd /var/home/user/Projects/fedora-bootc
 qemu-img info output/qcow2/disk.qcow2
 ```
 
@@ -28,13 +28,13 @@ The generated image should report a QCOW2 format and a virtual size of approxima
 Copy the image to a temporary location on the Proxmox server:
 
 ```bash
-scp output/qcow2/disk.qcow2 root@192.168.1.10:/var/lib/vz/dump/
+scp output/qcow2/disk.qcow2 root@192.168.1.x:/var/lib/vz/dump/
 ```
 
 Verify the upload:
 
 ```bash
-ssh root@192.168.1.10 \
+ssh root@192.168.1.x \
   'ls -lh /var/lib/vz/dump/disk.qcow2'
 ```
 
@@ -43,7 +43,7 @@ ssh root@192.168.1.10 \
 SSH into Proxmox:
 
 ```bash
-ssh root@192.168.1.10
+ssh root@192.168.1.x
 ```
 
 Check the available storage and existing VM IDs:
@@ -57,7 +57,7 @@ Create the VM:
 
 ```bash
 qm create 200 \
-  --name fedora-bootc \
+  --name homebox \
   --memory 8192 \
   --cores 4 \
   --cpu host \
@@ -117,7 +117,7 @@ qm start 200
 Open its console from the Proxmox web interface:
 
 ```text
-https://192.168.1.10:8006
+https://192.168.1.x:8006
 ```
 
 Select:
@@ -129,7 +129,7 @@ VM 200 → Console
 Log in as the configured user:
 
 ```text
-thijzer
+user
 ```
 
 Find the VM's IP address:
@@ -141,7 +141,7 @@ ip address
 Then connect over SSH from your workstation:
 
 ```bash
-ssh thijzer@VM_IP_ADDRESS
+ssh user@VM_IP_ADDRESS
 ```
 
 The image includes the SSH public key configured in `config.toml`, so the matching private key must be available on your workstation.

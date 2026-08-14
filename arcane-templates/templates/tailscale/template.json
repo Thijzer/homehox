@@ -1,0 +1,7 @@
+{
+  "name": "Tailscale",
+  "description": "Connect a Docker host or container network to your Tailscale tailnet.",
+  "version": "1.0.0",
+  "author": "thijzer",
+  "tags": ["vpn", "networking", "remote-access"]
+}
