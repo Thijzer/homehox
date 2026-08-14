@@ -2,9 +2,9 @@
   "$schema": "https://github.com/getarcaneapp/templates/schema.json",
   "name": "Homebox Templates",
   "description": "Docker Compose templates for the Homebox self-hosting appliance.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "thijzer",
-  "url": "https://github.com/thijzer/fedora-bootc/tree/main/arcane-templates",
+  "url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates",
   "templates": [
     {
       "id": "tailscale",
@@ -12,11 +12,15 @@
       "description": "Connect a Docker host or container network to your Tailscale tailnet.",
       "version": "1.0.0",
       "author": "thijzer",
-      "compose_url": "https://raw.githubusercontent.com/thijzer/fedora-bootc/main/arcane-templates/templates/tailscale/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/thijzer/fedora-bootc/main/arcane-templates/templates/tailscale/.env.example",
-      "documentation_url": "https://github.com/thijzer/fedora-bootc/tree/main/arcane-templates/templates/tailscale",
-      "content_hash": "5276642eeaffcd29fccff09cc7b3386140d2bcef9a165f7abb5395233079061e",
-      "tags": ["vpn", "networking", "remote-access"]
+      "compose_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/tailscale/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/tailscale/.env.example",
+      "documentation_url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates/templates/tailscale",
+      "content_hash": "218cab065f89806d5cd366466432aa13153fbd5ae7963541fd7285369d8da990",
+      "tags": [
+        "vpn",
+        "networking",
+        "remote-access"
+      ]
     }
   ]
 }

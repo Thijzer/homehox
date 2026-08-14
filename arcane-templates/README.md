@@ -7,11 +7,12 @@ This directory is a small Arcane template registry for this project.
 Once this repository is public on GitHub, add the following URL in Arcane:
 
 ```text
-https://raw.githubusercontent.com/thijzer/fedora-bootc/main/arcane-templates/registry.json
+https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/registry.json
 ```
 
-If the repository owner, name, or default branch differs, update the URLs in
-`registry.json` before adding it to Arcane.
+The repository is currently `Thijzer/homehox` and its default branch is
+`master`. If either changes, update the URLs in `registry.json` before adding
+it to Arcane.
 
 ## Adding a template
 
