@@ -1,0 +1,7 @@
+{
+  "name": "Music Assistant",
+  "description": "Music server for discovering, managing, and streaming music to networked players.",
+  "version": "1.0.0",
+  "author": "thijzer",
+  "tags": ["music", "audio", "streaming", "home-assistant"]
+}

@@ -1,0 +1,11 @@
+services:
+  music-assistant-server:
+    image: ghcr.io/music-assistant/server:${MUSIC_ASSISTANT_IMAGE_TAG}
+    container_name: ${MUSIC_ASSISTANT_CONTAINER_NAME}
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ${MUSIC_ASSISTANT_DATA_PATH}:/data
+      - ${MUSIC_ASSISTANT_MEDIA_PATH}:/media:ro
+    environment:
+      LOG_LEVEL: ${MUSIC_ASSISTANT_LOG_LEVEL}

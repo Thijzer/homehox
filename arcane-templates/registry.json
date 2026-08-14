@@ -2,7 +2,7 @@
   "$schema": "https://github.com/getarcaneapp/templates/schema.json",
   "name": "Homebox Templates",
   "description": "Docker Compose templates for the Homebox self-hosting appliance.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "thijzer",
   "url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates",
   "templates": [
@@ -20,6 +20,23 @@
         "rss",
         "feed-reader",
         "news"
+      ]
+    },
+    {
+      "id": "music-assistant",
+      "name": "Music Assistant",
+      "description": "Music server for discovering, managing, and streaming music to networked players.",
+      "version": "1.0.0",
+      "author": "thijzer",
+      "compose_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/music-assistant/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/music-assistant/.env.example",
+      "documentation_url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates/templates/music-assistant",
+      "content_hash": "1bb6d27659a33cb952a6b1c566e4ea40ff6ad6ba3559a9875b220bd61f536bd2",
+      "tags": [
+        "music",
+        "audio",
+        "streaming",
+        "home-assistant"
       ]
     },
     {
