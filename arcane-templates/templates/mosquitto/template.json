@@ -1,0 +1,7 @@
+{
+  "name": "Eclipse Mosquitto",
+  "description": "Lightweight MQTT broker for connected devices and home automation.",
+  "version": "1.0.0",
+  "author": "thijzer",
+  "tags": ["mqtt", "iot", "home-automation", "messaging"]
+}

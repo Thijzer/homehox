@@ -2,7 +2,7 @@
   "$schema": "https://github.com/getarcaneapp/templates/schema.json",
   "name": "Homebox Templates",
   "description": "Docker Compose templates for the Homebox self-hosting appliance.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "thijzer",
   "url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates",
   "templates": [
@@ -20,6 +20,23 @@
         "rss",
         "feed-reader",
         "news"
+      ]
+    },
+    {
+      "id": "mosquitto",
+      "name": "Eclipse Mosquitto",
+      "description": "Lightweight MQTT broker for connected devices and home automation.",
+      "version": "1.0.0",
+      "author": "thijzer",
+      "compose_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/mosquitto/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/mosquitto/.env.example",
+      "documentation_url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates/templates/mosquitto",
+      "content_hash": "7a51adf83057e091a76e1c2748f4749b821fa4d86cf0313522153df42ad38a2c",
+      "tags": [
+        "mqtt",
+        "iot",
+        "home-automation",
+        "messaging"
       ]
     },
     {
