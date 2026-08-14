@@ -1,0 +1,7 @@
+{
+  "name": "Technitium DNS Server",
+  "description": "Authoritative and recursive DNS server with a web console, blocking, and DNS protocol support.",
+  "version": "1.0.0",
+  "author": "thijzer",
+  "tags": ["dns", "networking", "home-automation", "privacy"]
+}

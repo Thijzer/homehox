@@ -1,0 +1,19 @@
+services:
+  dns-server:
+    image: docker.io/technitium/dns-server:${TECHNITIUM_IMAGE_TAG}
+    container_name: ${TECHNITIUM_CONTAINER_NAME}
+    hostname: ${TECHNITIUM_HOSTNAME}
+    ports:
+      - "${TECHNITIUM_WEB_PORT}:5380/tcp"
+      - "${TECHNITIUM_DNS_PORT}:53/udp"
+      - "${TECHNITIUM_DNS_PORT}:53/tcp"
+    environment:
+      DNS_SERVER_DOMAIN: ${TECHNITIUM_DOMAIN}
+      DNS_SERVER_ADMIN_PASSWORD: ${TECHNITIUM_ADMIN_PASSWORD}
+      DNS_SERVER_LOG_FOLDER_PATH: /var/log/technitium/dns
+    volumes:
+      - ${TECHNITIUM_CONFIG_PATH}:/etc/dns
+      - ${TECHNITIUM_LOG_PATH}:/var/log/technitium/dns
+    restart: unless-stopped
+    sysctls:
+      net.ipv4.ip_local_port_range: "1024 65535"

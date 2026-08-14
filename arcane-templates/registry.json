@@ -2,7 +2,7 @@
   "$schema": "https://github.com/getarcaneapp/templates/schema.json",
   "name": "Homebox Templates",
   "description": "Docker Compose templates for the Homebox self-hosting appliance.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "thijzer",
   "url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates",
   "templates": [
@@ -70,6 +70,23 @@
         "vpn",
         "networking",
         "remote-access"
+      ]
+    },
+    {
+      "id": "technitium-dns",
+      "name": "Technitium DNS Server",
+      "description": "Authoritative and recursive DNS server with a web console, blocking, and DNS protocol support.",
+      "version": "1.0.0",
+      "author": "thijzer",
+      "compose_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/technitium-dns/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/Thijzer/homehox/master/arcane-templates/templates/technitium-dns/.env.example",
+      "documentation_url": "https://github.com/Thijzer/homehox/tree/master/arcane-templates/templates/technitium-dns",
+      "content_hash": "0552077fdb50f9eed2c8975ab20c66474493d809da90032bf274e1e834c8dd87",
+      "tags": [
+        "dns",
+        "networking",
+        "home-automation",
+        "privacy"
       ]
     }
   ]
